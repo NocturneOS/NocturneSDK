@@ -2,7 +2,15 @@ cmake_minimum_required(VERSION 3.27)
 
 project(NocturneLibC VERSION 0.5.0 LANGUAGES C CXX ASM)
 
-set(RUNTIME_INIT_FILES src/crt0_32.S)
+message("Target processor: ${CMAKE_SYSTEM_PROCESSOR}")
+
+if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+        set(RUNTIME_INIT_FILES src/crt0_64.S)
+endif()
+
+if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
+        set(RUNTIME_INIT_FILES src/crt0_32.S)
+endif()
 
 set(FILES
         src/tty.c
@@ -47,6 +55,6 @@ add_library(crt0 OBJECT ${RUNTIME_INIT_FILES})
 add_library(c STATIC ${FILES})
 
 #install(FILES ${CMAKE_BINARY_DIR}/libc/CMakeFiles/crt0.dir/src/crt0.S.o DESTINATION i386-nocturne/lib/ RENAME crt0.o)
-#install(FILES ${CMAKE_BINARY_DIR}/libc/libc.a DESTINATION i386-nocturne/lib/)
+install(FILES ${CMAKE_BINARY_DIR}/libc/libc.a DESTINATION lib/)
 #install(FILES ${CMAKE_SOURCE_DIR}/common/link.ld DESTINATION i386-nocturne/share/)
-#install(DIRECTORY ${CMAKE_SOURCE_DIR}/libc/include/ DESTINATION i386-nocturne/include)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/libc/include/ DESTINATION include)

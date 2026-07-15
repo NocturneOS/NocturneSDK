@@ -2,6 +2,10 @@
 
 .globl _start
 _start:
-	jmp main
-	leave
-	ret
+	call main
+	
+	# Exitcode in EAX
+	mov %eax, %ebx
+	mov $3, %eax
+
+	int $0x80

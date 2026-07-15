@@ -5,5 +5,5 @@
 *.bin
 *.elf
 a.out
-build/
+build*/
 debug/

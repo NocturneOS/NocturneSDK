@@ -20,11 +20,11 @@ set(FILES
 
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
-set(CMAKE_ASM_FLAGS "-m32 -g")
-set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O2 -m32 -march=i386 -ffreestanding -static -fno-stack-protector ${C_INCLUDES}")
+set(CMAKE_ASM_FLAGS "-g")
+set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O2 -static -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(m STATIC ${FILES})
 
-install(FILES ${CMAKE_BINARY_DIR}/libm/libm.a DESTINATION i386-nocturne/lib/)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/libm/include/ DESTINATION i386-nocturne/include)
+install(FILES ${CMAKE_BINARY_DIR}/libm/libm.a DESTINATION lib/)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/libm/include/ DESTINATION include/)
