@@ -4,7 +4,7 @@
 #include "stddef.h"
 
 void _tty_write(const char* text, uint32_t len) {
-    _syscall2(TTY_WRITE_SYSCALL, (size_t) text, len);
+    _syscall2(SYS_WRITE, (size_t) text, len);
 }
 
 void _tty_write_nulterminated(const char* text) {

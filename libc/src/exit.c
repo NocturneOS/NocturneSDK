@@ -3,7 +3,7 @@
 
 __attribute__((noreturn)) void exit(int status) {
 	_syscall1(
-            EXIT_SYSCALL,
+            SYS_EXIT,
             status
             );
 

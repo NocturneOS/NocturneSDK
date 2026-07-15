@@ -1,9 +1,5 @@
 #pragma once
 
-#include "stdint.h"
+#include "stddef.h"
 
-void* realloc(void* memory, size_t size);
-void* calloc(size_t size, size_t count);
-void* malloc_align(size_t size, size_t align);
-__attribute__((malloc)) void* malloc(size_t size);
-void free(void* ptr);
+void* sbrk(ssize_t increment);

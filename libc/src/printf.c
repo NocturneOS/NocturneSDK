@@ -4,7 +4,6 @@
 #include "string.h"
 #include "memory.h"
 #include "tty.h"
-#include "printf.h"
 #include "sprintf.h"
 
 /**

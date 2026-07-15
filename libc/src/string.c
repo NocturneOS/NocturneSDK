@@ -348,11 +348,11 @@ unsigned long strtoul(const char* str, char** endptr, int base) {
     return result;
 }
 
-char* strdynamize(const char* str) {
-    size_t len = strlen(str);
+// char* strdynamize(const char* str) {
+//     size_t len = strlen(str);
 
-    char* mem = malloc(len + 1);
-    strcpy(mem, str);
+//     char* mem = malloc(len + 1);
+//     strcpy(mem, str);
 
-    return mem;
-}
+//     return mem;
+// }
