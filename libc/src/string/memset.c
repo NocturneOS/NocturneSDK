@@ -1,7 +1,6 @@
-#include <stddef.h>
-#include <stdint.h>
+#include "string.h"
 
-void* memset(void* ptr, char value, size_t num) {
+void* memset(void* ptr, int value, long unsigned num) {
     uint8_t* p = (uint8_t*)ptr;
 
     for (size_t i = 0; i < num; i++) {

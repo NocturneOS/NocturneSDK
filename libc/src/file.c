@@ -1,10 +1,10 @@
 #include "syscall.h"
 #include "file.h"
 
-int fd_open(const char* filename, size_t mode) {
+int open(const char* filename, size_t mode) {
     int fd = 0;
     _syscall3(
-            SYSCALL_FILE_DESCR_OPEN,
+            SYS_OPEN,
             (size_t) filename,
             mode,
             (size_t) &fd
@@ -13,19 +13,19 @@ int fd_open(const char* filename, size_t mode) {
     return fd;
 }
 
-void fd_seek(int fd, size_t off, size_t whence) {
+void seek(int fd, size_t off, size_t whence) {
     _syscall3(
-            SYSCALL_FILE_DESCR_SEEK,
+            SYS_SEEK,
             fd,
             off,
             whence
 	);
 }
 
-int fd_tell(int fd) {
+int tell(int fd) {
     int value = 0;
     _syscall2(
-            SYSCALL_FILE_DESCR_TELL,
+            SYS_TELL,
             fd,
             (size_t)&value
     );
@@ -33,27 +33,27 @@ int fd_tell(int fd) {
     return value;
 }
 
-void fd_read(int fd, size_t size, size_t count, void* buffer) {
-    _syscall3(
-            SYSCALL_FILE_DESCR_READ,
+int read(int fd, size_t size, size_t count, void* buffer) {
+    return (int)_syscall3(
+            SYS_READ,
             (size_t) fd,
-            size * count,
-            (size_t) buffer
+            (size_t) buffer,
+            size * count
             );
 }
 
-void fd_write(int fd, size_t size, size_t count, const void* buffer) {
-    _syscall3(
-            SYSCALL_FILE_DESCR_WRITE,
+int write(int fd, size_t size, size_t count, const void* buffer) {
+    return (int)_syscall3(
+            SYS_WRITE,
             (size_t) fd,
-            size * count,
-            (size_t) buffer
+            (size_t) buffer,
+            size * count
             );
 }
 
-void fd_close(int fd) {
+void close(int fd) {
     _syscall1(
-            SYSCALL_FILE_DESCR_CLOSE,
+            SYS_CLOSE,
             (size_t) fd
             );
 }

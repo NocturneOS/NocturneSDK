@@ -1,82 +1,15 @@
 #include "stdint.h"
 #include "stddef.h"
-#include "memory.h"
 #include "string.h"
 
-/**
- * @brief - Проверяет является ли символ буквенно-циф­ровым значением
- *
- * @param char c - Символ
- *
- * @return - Возвращает ненулевое значение, если его аргумент является либо буквой ал­фавита (верхнего или нижнего регистра), либо цифрой.
- */
-bool isalnum(char c){
+int isalnum(int c){
     return  (c >= '0' && c <= '9') ||
             (c >= 'a' && c <= 'z') ||
             (c >= 'A' && c <= 'Z') ;
 }
 
-bool isspace(char c) {
+int isspace(int c) {
 	return c == ' ' || c == '\n' || c == '\t';
-}
-
-/**
- * @brief Проверяет, является ли символ формата UTF-8
- *
- * @param с - Символ
- *
- * @return bool - true если да
- */
-bool isUTF(char c) {
-    if (c == -47 || c == -48){
-        return true;
-    }
-    return false;
-}
-
-/**
- * @brief Проверяет, является ли специальным символом
- *
- * @param с - Символ
- *
- * @return bool - true если да
- */
-bool isSymbol(char c){
-    if (c == -62 || c == -106 || c == -30){
-        return true;
-    }
-    return false;
-}
-
-/**
- * @brief Возращает индекс символа
- *
- * @param с - Символ
- * @param с1 - Символ
- *
- * @warning зачем нам c и c1 если нужен short c?
- * @return индекс символа
- */
-uint32_t UTFConvert(char c, char c1){
-    return (isUTF(c)?((((int) c)* -1)+(((int) c1)* -1)):((int) c));
-}
-
-/**
- * @brief Возращает длину строки с учетом UTF-8
- *
- * @param str - Строка
- *
- * @return size_t - Длину символов
- */
-size_t mb_strlen(const char *str){
-    size_t len = 0;
-    const size_t def = strlen(str);
-
-    for(size_t i = 0; i < def;i++){
-        if (isUTF(str[i])) continue;
-        len++;
-    }
-    return len;
 }
 
 /**
@@ -121,22 +54,6 @@ char* strcat(char* destination, const char* source) {
     *ptr = '\0';
 
     return destination;
-}
-
-/**
- * @brief Проверяет, является ли строка числом
- *
- * @param c - Указатель на строку.
- *
- * @return bool - если строка является числом
- */
-bool isNumber(const char* c) {
-    for(uint32_t i = 0, len = strlen(c); i < len; i++){
-        if (!(c[i] >= '0' && c[i] <= '9')) {
-            return false;
-        }
-    }
-    return true;
 }
 
 /**
@@ -195,59 +112,6 @@ size_t itoh(size_t i, char *buffer) {
     return strlen(buffer);
 }
 
-/**
- * @brief - ???
- *
- * @param  const char *s1 - ???
- * @param const char *s2  - ???
- *
- * @return - ???
- */
-int dcmpstr( const char *s1, const char *s2 )
-{
-    while ( *s1 && *s1 == *s2 ) ++s1, ++s2;
-
-    return ( ( unsigned char )*s1 > ( unsigned char )*s2 ) -
-           ( ( unsigned char )*s1 < ( unsigned char )*s2 );
-}
-
-/**
- * @brief - ???
- *
- * @param size_t num - ???
- *
- * @return - ???
- */
-char digit_count(size_t num) {
-    if(num == 0)
-        return 1;
-
-    char count = 0;
-    while(num > 0) {
-        num /= 10;
-        count++;
-    }
-    return count;
-}
-
-/**
- * @brief - ???
- *
- * @param size_t num - ???
- *
- * @return - ???
- */
-char hex_count(size_t num) {
-    if(num == 0)
-        return 1;
-
-    char _ = 0;
-    while(num > 0) {
-        num /= 16;
-        _++;
-    }
-    return _;
-}
 /**
  * @brief - Проверяет строку на числовое значение
  *

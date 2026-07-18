@@ -21,7 +21,7 @@ set(FILES
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
 set(CMAKE_ASM_FLAGS "-g")
-set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O2 -static -fno-stack-protector ${C_INCLUDES}")
+set(CMAKE_C_FLAGS "-nostdlib -Wall -Wextra -fno-pic -ggdb3 -O2 -static -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(m STATIC ${FILES})

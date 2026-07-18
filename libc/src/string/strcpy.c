@@ -1,4 +1,6 @@
-int strcpy(char* dest, const char* src){
+#include "string.h"
+
+char* strcpy(char* dest, const char* src){
     int i = 0;
 
     while (src[i] != '\0')
@@ -9,5 +11,5 @@ int strcpy(char* dest, const char* src){
 
     dest[i] = '\0';
 
-    return i;
+    return dest;
 }

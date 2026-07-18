@@ -1,6 +1,7 @@
-#include <stddef.h>
+// #include <stddef.h>
+#include "string.h"
 
-void* memcpy(void *restrict destination, const void *restrict source, size_t n){
+void* memcpy(void *restrict destination, const void *restrict source, long unsigned int n){
     size_t *tmp_dest = (size_t *)destination;
     size_t *tmp_src = (size_t *)source;
     size_t len = n / sizeof(size_t);

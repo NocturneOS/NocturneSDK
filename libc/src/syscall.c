@@ -17,10 +17,12 @@ size_t _syscall1(size_t num, size_t p1) {
   register size_t rdi __asm__("rdi") = p1;
 
   __asm__ volatile("syscall" : "+r"(rax) : "r"(rdi) : "rcx", "r11", "memory");
+
+  return rax;
 #else
   __asm__ volatile("int $0x80" : "=a"(result) : "a"(num), "b"(p1));
-#endif
   return result;
+#endif
 }
 
 size_t _syscall2(size_t num, size_t p1, size_t p2) {
@@ -34,10 +36,11 @@ size_t _syscall2(size_t num, size_t p1, size_t p2) {
                    : "+r"(rax)
                    : "r"(rdi), "r"(rsi)
                    : "rcx", "r11", "memory");
+  return rax;
 #else
   __asm__ volatile("int $0x80" : "=a"(result) : "a"(num), "b"(p1), "c"(p2));
-#endif
   return result;
+#endif
 }
 
 size_t _syscall3(size_t num, size_t p1, size_t p2, size_t p3) {
@@ -73,12 +76,13 @@ size_t _syscall4(size_t num, size_t p1, size_t p2, size_t p3, size_t p4) {
                    : "+r"(rax)
                    : "r"(rdi), "r"(rsi), "r"(rdx), "r"(r10)
                    : "rcx", "r11", "memory");
+  return rax;
 #else
   __asm__ volatile("int $0x80"
                    : "=a"(result)
                    : "a"(num), "b"(p1), "c"(p2), "d"(p3), "S"(p4));
-#endif
   return result;
+#endif
 }
 
 size_t _syscall5(size_t num, size_t p1, size_t p2, size_t p3, size_t p4,
@@ -96,10 +100,11 @@ size_t _syscall5(size_t num, size_t p1, size_t p2, size_t p3, size_t p4,
                    : "+r"(rax)
                    : "r"(rdi), "r"(rsi), "r"(rdx), "r"(r10), "r"(r8)
                    : "rcx", "r11", "memory");
+  return rax;
 #else
   __asm__ volatile("int $0x80"
                    : "=a"(result)
                    : "a"(num), "b"(p1), "c"(p2), "d"(p3), "S"(p4), "D"(p5));
-#endif
   return result;
+#endif
 }
