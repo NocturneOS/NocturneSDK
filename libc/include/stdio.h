@@ -6,7 +6,7 @@
 #define FD_STDOUT 1
 #define FD_STDERR 2
 
-int puts(const char* text);
+int puts(const char *text);
+int putchar(int ch);
 
-__attribute__((format(printf, 1, 2)))
-int printf(const char *text, ...);
+__attribute__((format(printf, 1, 2))) int printf(const char *text, ...);

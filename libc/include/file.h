@@ -1,7 +1,7 @@
 #pragma once
 
-#include "stdint.h"
 #include "stddef.h"
+#include "stdint.h"
 
 #define O_READ 1
 #define O_WRITE 2
@@ -14,9 +14,10 @@
 #define SEEK_CURRENT 1
 #define SEEK_END 2
 
-int open(const char* filename, size_t mode);
-int read(int fd, size_t size, size_t count, void* buffer);
-int write(int fd, size_t size, size_t count, const void* buffer);
+int open(const char *filename, size_t mode);
+int read(int fd, size_t size, size_t count, void *buffer);
+int write(int fd, size_t size, size_t count, const void *buffer);
 void seek(int fd, size_t off, size_t whence);
 int tell(int fd);
+int flush(int fd);
 void close(int fd);

@@ -22,8 +22,11 @@ set(FILES
         src/exit.c
         src/stdio.c
         src/file.c
+        src/getcwd.c
         src/syscall.c
         src/sprintf.c
+        src/usleep.c
+
         src/string/atoi.c
         src/string/memcmp.c
         src/string/memmove.c
