@@ -3,4 +3,4 @@ set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR i586)
 
 set(CMAKE_C_COMPILER i586-nocturne-gcc)
-set(CMAKE_CXX_COMPILER i586-nocturne-g++)
+# set(CMAKE_CXX_COMPILER i586-nocturne-g++)

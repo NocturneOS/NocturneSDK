@@ -13,3 +13,5 @@ class BuildArguments:
     download_only: bool
 
     sdk_source: str
+
+    reconfigure: list[str]

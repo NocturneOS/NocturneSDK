@@ -30,6 +30,7 @@ def main():
         "-l",
         help="Tools to be built",
         type=str,
+        nargs="+",
         choices=tools.AVAILABLE_TOOLS,
         default=tools.AVAILABLE_TOOLS,
     )
@@ -67,6 +68,15 @@ def main():
     )
 
     parser.add_argument(
+        "--reconfigure",
+        help="Tools to be reconfigured",
+        type=str,
+        nargs="+",
+        choices=tools.TOOLS.keys(),
+        default=[],
+    )
+
+    parser.add_argument(
         "--prefix", "-p", help="SDK installation path", required=True, type=str
     )
 
@@ -82,6 +92,7 @@ def main():
             gcc_langs=args.gcc_langs,
             download_only=args.download_only,
             sdk_source=pathlib.Path(__file__).absolute().parent,
+            reconfigure=args.reconfigure,
         )
     )
 

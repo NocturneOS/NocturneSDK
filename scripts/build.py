@@ -44,6 +44,20 @@ def resolve_tools(args: arguments.BuildArguments):
         tool_desc.url = tool_desc.url.format(**flags)
 
 
+def update_caches(args: arguments.BuildArguments):
+    build_dirs = [f"build-{target}" for target in args.targets]
+
+    for [cur_dir, target] in zip(build_dirs, args.targets):
+        rpath = pathlib.Path(cur_dir)
+
+        for tool in args.reconfigure:
+            print(f"tool: resetting state for tool {tool}/{target}")
+
+            bcache = cache.BuildCache(rpath)
+
+            bcache.reset_state(tool)
+
+
 def begin(args: arguments.BuildArguments):
     real_prefix = os.path.abspath(args.prefix)
 
@@ -63,6 +77,8 @@ def begin(args: arguments.BuildArguments):
         os.makedirs(args.build_dir)
 
     os.chdir(args.build_dir)
+
+    update_caches(args)
 
     # Start build
 
@@ -96,6 +112,16 @@ def begin(args: arguments.BuildArguments):
             os.makedirs(tool_name, exist_ok=True)
             os.chdir(tool_name)
 
+            input_flags = {
+                "IN_PREFIX": args.prefix,
+                "IN_JOBS": args.jobs,
+                "IN_GNU_TARGET": cur_target,
+                "IN_RAW_TARGET": raw_target_name,
+                "IN_GCC_LANGS": ",".join(args.gcc_langs),
+                "IN_SDK_SOURCE": args.sdk_source,
+                "IN_TARGET_BITS": 32 if raw_target_name == "i586" else 64,
+            }
+
             if not bcache.is_configured(tool_name):
                 print(f"{tool_name}: configuring")
 
@@ -104,22 +130,19 @@ def begin(args: arguments.BuildArguments):
 
                 flags = tool.configure_flags
 
-                input_flags = {
-                    "IN_GNU_TARGET": cur_target,
-                    "IN_RAW_TARGET": raw_target_name,
-                    "IN_GCC_LANGS": ",".join(args.gcc_langs),
-                    "IN_SDK_SOURCE": args.sdk_source,
-                    "IN_TARGET_BITS": 32 if raw_target_name == "i586" else 64,
-                }
-
                 formatted_flags = [flag.format(**input_flags) for flag in flags]
 
                 if tool.build_system == "configure_make":
+                    local_prefix = real_prefix
+
+                    if tool.install_postfix is not None:
+                        local_prefix += tool.install_postfix.format(**input_flags)
+
                     command = [
-                        f"{orig_dir}/{TOOLS_SOURCES_DIR}/{tool_name}/configure",
+                        f"{orig_dir}/{TOOLS_SOURCES_DIR}/{tool.source_dir}/configure",
                         *formatted_flags,
                         "--prefix",
-                        real_prefix,
+                        local_prefix,
                     ]
                 elif tool.build_system == "cmake":
                     if tool_name == "sdk":
@@ -153,39 +176,59 @@ def begin(args: arguments.BuildArguments):
                 print(f"{tool_name}: building")
 
                 if tool.build_system == "configure_make":
-                    command = ["make", "-j", str(args.jobs)]
+                    commands = [["make", "-j", str(args.jobs)]]
                 elif tool.build_system == "cmake":
-                    command = ["cmake", "--build", ".", "-j", str(args.jobs)]
+                    commands = [["cmake", "--build", ".", "-j", str(args.jobs)]]
 
-                retcode = subprocess.call(command)
+                if tool.build_commands:
+                    commands = [
+                        [c.format(**input_flags) for c in cmd]
+                        for cmd in tool.build_commands
+                    ]
 
-                if retcode != 0:
-                    raise Exception(f"Failed to build {tool_name}")
+                for command in commands:
+                    print(f"{tool_name}: running build command: {' '.join(command)}")
+
+                    retcode = subprocess.call(command)
+
+                    if retcode != 0:
+                        raise Exception(f"Failed to build {tool_name}")
 
                 bcache.mark_tool_as_built(tool_name)
 
-            # The config might be updated, so check it again
-            if bcache.is_built(tool_name):
-                # If compiler is built, install it to prefix path.
-
+            if not bcache.is_installed(tool_name):
                 print(f"{tool_name}: installing")
 
                 if tool.build_system == "configure_make":
-                    command = [
-                        "make",
-                        "install-gcc" if tool_name == "gcc" else "install",
+                    commands = [
+                        [
+                            "make",
+                            "install",
+                        ]
                     ]
                 elif tool.build_system == "cmake":
-                    command = ["cmake", "--install", ".", "--prefix", args.prefix]
+                    prefix = args.prefix
 
-                retcode = subprocess.call(command)
+                    if tool.install_postfix is not None:
+                        prefix += "/" + tool.install_postfix.format(**input_flags)
 
-                if retcode != 0:
-                    raise Exception(f"Failed to install {tool_name}")
+                    commands = [["cmake", "--install", ".", "--prefix", prefix]]
 
-            # TODO: Then use that compiler to build NocturneLibC and NocturneLibM
+                if tool.install_commands:
+                    commands = [
+                        [c.format(**input_flags) for c in cmd]
+                        for cmd in tool.install_commands
+                    ]
 
-            # TODO: Rebuild the compiler with sysroot support
+                for command in commands:
+                    print(f"{tool_name}: running install command: {' '.join(command)}")
+
+                    retcode = subprocess.call(command)
+
+                    if retcode != 0:
+                        raise Exception(f"Failed to install {tool_name}")
+
+                bcache.mark_tool_as_installed(tool_name)
 
             os.chdir("..")
 

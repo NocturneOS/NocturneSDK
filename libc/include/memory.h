@@ -1,5 +1,5 @@
 #pragma once
 
-#include "stddef.h"
+#include <sys/types.h>
 
-void* sbrk(ssize_t increment);
+void *sbrk(ssize_t increment);

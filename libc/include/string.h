@@ -1,9 +1,10 @@
 #pragma once
 
-#include "stddef.h"
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
-_INLINE int isdigit(int a) { return a >= '0' && a <= '9'; }
+static inline int isdigit(int a) { return a >= '0' && a <= '9'; }
 
 int isalnum(int c);
 int isspace(int c);
