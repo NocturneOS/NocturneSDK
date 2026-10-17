@@ -7,3 +7,5 @@
 a.out
 build*/
 debug/
+thirdparty/
+**/__pycache__/

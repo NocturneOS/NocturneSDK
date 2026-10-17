@@ -4,7 +4,6 @@ NocturneOS SDK - modular toolkit for working with compilers that doesn't impleme
 It includes:
 - Nocturne LibC (standard C library)
 - Nocturne LibM (standard math library)
-- Nocturne-CC (compiler wrapper) (DEPRECATED!)
 
 # Installation
 ```bash

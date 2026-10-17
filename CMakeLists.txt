@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(NocturneSDK VERSION 0.1)
+project(NocturneSDK VERSION 0.1 LANGUAGES ASM C)
 
 add_subdirectory(libc/)
 add_subdirectory(libm/)
