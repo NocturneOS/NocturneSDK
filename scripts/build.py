@@ -175,6 +175,8 @@ def begin(args: arguments.BuildArguments):
 
                 bcache.mark_tool_as_configured(tool_name)
 
+            log.ok(f"{tool_name}/{raw_target_name}: configured")
+
             if not bcache.is_built(tool_name):
                 log.note(f"{tool_name}/{raw_target_name}: building")
 
@@ -198,6 +200,8 @@ def begin(args: arguments.BuildArguments):
                         raise Exception(f"Failed to build {tool_name}")
 
                 bcache.mark_tool_as_built(tool_name)
+
+            log.ok(f"{tool_name}/{raw_target_name}: built")
 
             if not bcache.is_installed(tool_name):
                 log.note(f"{tool_name}/{raw_target_name}: installing")
@@ -236,6 +240,8 @@ def begin(args: arguments.BuildArguments):
                         raise Exception(f"Failed to install {tool_name}")
 
                 bcache.mark_tool_as_installed(tool_name)
+
+            log.ok(f"{tool_name}/{raw_target_name}: installed")
 
             os.chdir("..")
 
