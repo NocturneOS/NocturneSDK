@@ -25,11 +25,14 @@ class Tool:
 
 
 TOOLS = {
-    "binutils": Tool(
+    "binutils_bare": Tool(
         url="https://github.com/NocturneOS/binutils-gdb",
+        source_dir="binutils-gdb",
         configure_flags=[
             "--target={IN_GNU_TARGET}",
             "--disable-gdb",
+            "--disable-nls",
+            "--disable-shared",
             "--disable-python",
             "--disable-gdbserver",
             "--disable-docs",
@@ -38,8 +41,9 @@ TOOLS = {
         ],
         priority=0,
     ),
-    "gcc": Tool(
+    "gcc_bare": Tool(
         url="https://github.com/NocturneOS/gcc",
+        source_dir="gcc",
         configure_flags=[
             "--target={IN_GNU_TARGET}",
             "--enable-languages=c",
@@ -51,7 +55,6 @@ TOOLS = {
         ],
         priority=1,
     ),
-    # TODO: Add SDK itself as a tool
     "sdk": Tool(
         url="{IN_SDK_SOURCE}",
         source_dir="sdk",
@@ -64,7 +67,7 @@ TOOLS = {
         install_postfix="{IN_GNU_TARGET}/sysroot/usr",
         priority=2,
     ),
-    "binutils_sysroot": Tool(
+    "binutils": Tool(
         url="https://github.com/NocturneOS/binutils-gdb",
         source_dir="binutils-gdb",
         configure_flags=[
@@ -79,7 +82,7 @@ TOOLS = {
         ],
         priority=3,
     ),
-    "gcc_sysroot": Tool(
+    "gcc": Tool(
         url="https://github.com/NocturneOS/gcc",
         source_dir="gcc",
         configure_flags=[
@@ -112,6 +115,6 @@ TOOLS = {
 
 # These tools are not visible in the `--help` and can't be selected,
 # because it's a required part of build
-__HIDDEN_TOOLS = ["sdk"]
+HIDDEN_TOOLS = ["binutils_bare", "gcc_bare", "sdk"]
 
-AVAILABLE_TOOLS = [tool for tool in TOOLS if tool not in __HIDDEN_TOOLS]
+AVAILABLE_TOOLS = [tool for tool in TOOLS if tool not in HIDDEN_TOOLS]

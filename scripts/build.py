@@ -3,8 +3,8 @@ import pathlib
 import subprocess
 import sys
 
-from . import arguments, git, cache
-from .tools import TOOLS
+from . import arguments, git, cache, log, host
+from .tools import TOOLS, HIDDEN_TOOLS
 
 TOOLS_SOURCES_DIR = "thirdparty"
 
@@ -17,17 +17,19 @@ def ensure_packages_downloaded(args: arguments.BuildArguments):
         tool_desc = TOOLS.get(tool)
 
         if tool_desc is None:
-            print(f"Error: unknown tool `{tool}`")
+            log.error(f"unknown tool `{tool}`")
             sys.exit(1)
 
         if not tool_desc.is_local():
             if pathlib.Path(tool_desc.source_dir).exists():
-                print(f"tool: {tool} is already downloaded")
+                log.note(f"tool: {tool} is already downloaded")
                 continue
 
             tool_url = tool_desc.url
 
-            print(f"tool: Downloading {tool} -> {tool_url} into {tool_desc.source_dir}")
+            log.note(
+                f"tool: Downloading {tool} -> {tool_url} into {tool_desc.source_dir}"
+            )
 
             git.clone(tool_url, shallow=True, output=tool_desc.source_dir)
 
@@ -51,7 +53,7 @@ def update_caches(args: arguments.BuildArguments):
         rpath = pathlib.Path(cur_dir)
 
         for tool in args.reconfigure:
-            print(f"tool: resetting state for tool {tool}/{target}")
+            log.warning(f"tool: resetting state for tool {tool}/{target}")
 
             bcache = cache.BuildCache(rpath)
 
@@ -63,6 +65,10 @@ def begin(args: arguments.BuildArguments):
 
     orig_dir = os.getcwd()
 
+    log.note("NocturneSDK build & installation tool")
+
+    host.check_tools()
+
     resolve_tools(args)
 
     ensure_packages_downloaded(args)
@@ -71,7 +77,7 @@ def begin(args: arguments.BuildArguments):
         return
 
     if not pathlib.Path(args.build_dir).exists():
-        print(
+        log.note(
             f"note: Build directory (`{args.build_dir}`) doesn't exist, creating it..."
         )
         os.makedirs(args.build_dir)
@@ -100,7 +106,7 @@ def begin(args: arguments.BuildArguments):
         tools = sorted(
             {
                 tool: TOOLS[tool]
-                for tool in [*args.tools, "sdk"]
+                for tool in [*args.tools, *HIDDEN_TOOLS]
                 if TOOLS.get(tool) is not None
             },
             key=lambda x: TOOLS[x].priority,
@@ -123,7 +129,7 @@ def begin(args: arguments.BuildArguments):
             }
 
             if not bcache.is_configured(tool_name):
-                print(f"{tool_name}: configuring")
+                log.note(f"{tool_name}/{raw_target_name}: configuring")
 
                 configure_env = os.environ.copy()
                 configure_env["PATH"] = f"{args.prefix}/bin:{configure_env['PATH']}"
@@ -162,9 +168,6 @@ def begin(args: arguments.BuildArguments):
                 else:
                     raise Exception(f"Unknown build system: {tool.build_system}")
 
-                print(f"Command: {command}")
-                print(f"Env: {configure_env}")
-
                 retcode = subprocess.call(command, env=configure_env)
 
                 if retcode != 0:
@@ -173,7 +176,7 @@ def begin(args: arguments.BuildArguments):
                 bcache.mark_tool_as_configured(tool_name)
 
             if not bcache.is_built(tool_name):
-                print(f"{tool_name}: building")
+                log.note(f"{tool_name}/{raw_target_name}: building")
 
                 if tool.build_system == "configure_make":
                     commands = [["make", "-j", str(args.jobs)]]
@@ -197,7 +200,7 @@ def begin(args: arguments.BuildArguments):
                 bcache.mark_tool_as_built(tool_name)
 
             if not bcache.is_installed(tool_name):
-                print(f"{tool_name}: installing")
+                log.note(f"{tool_name}/{raw_target_name}: installing")
 
                 if tool.build_system == "configure_make":
                     commands = [
@@ -221,7 +224,11 @@ def begin(args: arguments.BuildArguments):
                     ]
 
                 for command in commands:
-                    print(f"{tool_name}: running install command: {' '.join(command)}")
+                    log.note(
+                        f"{tool_name}/{raw_target_name}: running install command: {
+                            ' '.join(command)
+                        }"
+                    )
 
                     retcode = subprocess.call(command)
 
@@ -233,7 +240,5 @@ def begin(args: arguments.BuildArguments):
             os.chdir("..")
 
         os.chdir("..")
-
-        print(cur_dir, cur_target)
 
     os.chdir(orig_dir)
