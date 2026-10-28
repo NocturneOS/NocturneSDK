@@ -13,11 +13,13 @@
        __assert_fail(#expr, __FILE__, __LINE__, __ASSERT_FUNCTION);            \
    }))
 
-#if (defined __USE_ISOC11 &&                                                   \
-     (!defined __STDC_VERSION__ ||                                             \
-      __STDC_VERSION__ <= 201710L && !defined __cplusplus))
-#undef static_assert
+#if !defined(__cplusplus)
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+/* C11 and later: static_assert is a keyword, but define macro for compatibility */
+#ifndef static_assert
 #define static_assert _Static_assert
+#endif
+#endif
 #endif
 
 inline static void __assert_fail(const char *assertion, const char *file,
