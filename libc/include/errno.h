@@ -2,8 +2,16 @@
 #define _ERRNO_H
 
 extern int errno;
-#define EINVAL 1
-#define ENOMEM 2
+
+#define EINVAL 5
+#define ENOMEM 16
 #define EAGAIN 3
-// или просто скопируйте базовый список POSIX-ошибок
+#define EBADF 7
+#define EIO 11
+#define ENOENT 12
+#define EACCES 13
+#define ENOSPC 18
+
+#define EDOM 1000
+
 #endif
