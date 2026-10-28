@@ -91,7 +91,20 @@ static inline double ceil(double x) {
   return intPart + (x > 0 && x != intPart);
 }
 
+static inline float floorf(float x) {
+  int intPart = (int)x;
+
+  return (float)(intPart - (x < 0 && x != intPart));
+}
+
+static inline float ceilf(float x) {
+  int intPart = (int)x;
+
+  return (float)(intPart + (x > 0 && x != intPart));
+}
+
 static inline double fabs(double x) { return (x < 0) ? -x : x; }
+static inline float fabsf(float x) { return (x < 0) ? -x : x; }
 
 #define ASIN_STEPS 6000
 #define ATAN_STEPS 6000
@@ -116,8 +129,15 @@ double exp(double x);
 double asin(double x);
 double acos(double x);
 double atan(double x);
+double atan2(double y, double x);
+
+float atan2f(float y, float x);
 
 double sqrt(double x);
+float sqrtf(float x);
 double cbrt(double x);
 double modf(double value, double *intPart);
 float fmodf(float x, float y);
+
+float fmaxf(float x, float y);
+float fminf(float x, float y);

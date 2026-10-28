@@ -5,9 +5,13 @@ set(FILES
     src/acos.c
     src/asin.c
     src/atan.c
+    src/atan2.c
+    src/atan2f.c
     src/cbrt.c
     src/cos.c
     src/exp.c
+    src/fmaxf.c
+    src/fminf.c
     src/log.c
     src/math.c
     src/integral.c
@@ -15,6 +19,7 @@ set(FILES
     src/pow.c
     src/sin.c
     src/sqrt.c
+    src/sqrtf.c
     src/tan.c
 )
 
