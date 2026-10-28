@@ -17,7 +17,7 @@
 int open(const char *filename, size_t mode);
 int read(int fd, size_t size, size_t count, void *buffer);
 int write(int fd, size_t size, size_t count, const void *buffer);
-void seek(int fd, size_t off, size_t whence);
+int seek(int fd, size_t off, size_t whence);
 int tell(int fd);
 int flush(int fd);
 void close(int fd);

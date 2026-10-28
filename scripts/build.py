@@ -60,6 +60,11 @@ def update_caches(args: arguments.BuildArguments):
             bcache.reset_state(tool)
 
 
+def ensure_build_dirs_exist(dirs: list[str]):
+    for cur_dir in dirs:
+        os.makedirs(cur_dir, exist_ok=True)
+
+
 def begin(args: arguments.BuildArguments):
     real_prefix = os.path.abspath(args.prefix)
 
@@ -84,8 +89,6 @@ def begin(args: arguments.BuildArguments):
 
     os.chdir(args.build_dir)
 
-    update_caches(args)
-
     # Start build
 
     binutils_targets = [target + "-nocturne" for target in args.targets]
@@ -93,11 +96,13 @@ def begin(args: arguments.BuildArguments):
     # Each target will have its own build directory
     build_dirs = [f"build-{target}" for target in args.targets]
 
+    ensure_build_dirs_exist(build_dirs)
+
+    update_caches(args)
+
     for [cur_dir, cur_target, raw_target_name] in zip(
         build_dirs, binutils_targets, args.targets
     ):
-        os.makedirs(cur_dir, exist_ok=True)
-
         os.chdir(cur_dir)
 
         bcache = cache.BuildCache(".")

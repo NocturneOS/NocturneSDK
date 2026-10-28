@@ -2,14 +2,13 @@
 #include "syscall.h"
 
 int open(const char *filename, size_t mode) {
-  int fd = 0;
-  _syscall3(SYS_OPEN, (size_t)filename, mode, (size_t)&fd);
+  int fd = _syscall2(SYS_OPEN, (size_t)filename, mode);
 
   return fd;
 }
 
-void seek(int fd, size_t off, size_t whence) {
-  _syscall3(SYS_SEEK, fd, off, whence);
+int seek(int fd, size_t off, size_t whence) {
+  return _syscall3(SYS_SEEK, fd, off, whence);
 }
 
 int tell(int fd) {

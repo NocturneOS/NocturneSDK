@@ -7,16 +7,13 @@ It includes:
 
 # Installation
 ```bash
-cmake -B build .
-cmake --build build/
-sudo cmake --install build/
+# Quick start
+sudo mkdir /opt/nocturne
+sudo chown $USER /opt/nocturne
+
+./insttool.py --targets i586 x86_64 --gcc-langs c --prefix /opt/nocturne
 ```
 
-After installation you'll find libraries, header files and Nocturne-CC at `/usr/local/i386-nocturne/`.
-
 > [!IMPORTANT]
-> Be sure to add `/usr/local/nocturneos/bin` to your `$PATH` and restart your shell to apply your changes.
+> Be sure to add `/opt/nocturne/bin` to your `$PATH` and restart your shell to apply your changes.
 
-# Usage
-
-Use [binutils](https://github.com/NocturneOS/binutils-gdb) and [gcc](https://github.com/NocturneOS/gcc) to make it work with NocturneSDK.

@@ -1,12 +1,9 @@
-#include "syscall.h"
 #include "exit.h"
+#include "syscall.h"
 
 __attribute__((noreturn)) void exit(int status) {
-	_syscall1(
-            SYS_EXIT,
-            status
-            );
+  _syscall1(SYS_EXIT, status);
 
-	while(1)
-		;
+  while (1)
+    ;
 }

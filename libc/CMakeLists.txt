@@ -15,17 +15,25 @@ if((${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386") OR (${CMAKE_SYSTEM_PROCESSOR} STR
 endif()
 
 set(FILES
+        src/abort.c
         src/syscall.c
         src/string.c
+        src/ctype.c
         src/rand.c
-        src/memory.c
         src/exit.c
-        src/stdio.c
         src/file.c
         src/getcwd.c
         src/syscall.c
         src/sprintf.c
         src/usleep.c
+
+        src/gettimeofday.c
+
+        src/sbrk.c
+        src/malloc_free.c
+
+        src/stdio/stdio.c
+        src/stdio/file.c
 
         src/string/atoi.c
         src/string/memcmp.c
@@ -50,7 +58,7 @@ set(FILES
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
 set(CMAKE_ASM_FLAGS "-g")
-set(CMAKE_C_FLAGS "-nostdlib -Wall -Wextra -fno-pic -ggdb3 -O2 -static -fno-stack-protector ${C_INCLUDES}")
+set(CMAKE_C_FLAGS "-fanalyzer -nostdlib -Wall -Wextra -fno-pic -mno-mmx -ggdb3 -O2 -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(crt0 OBJECT ${RUNTIME_INIT_FILES})

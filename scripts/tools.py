@@ -94,11 +94,9 @@ TOOLS = {
             "--disable-libquadmath",
             "--disable-tests",
             "--disable-bootstrap",
-            "--disable-libstdcxx",
             "--without-headers",
             "--disable-shared",
             "--disable-multilib",
-            # "--disable-libgcc",
             "--with-sysroot={IN_PREFIX}/{IN_GNU_TARGET}/sysroot",
         ],
         build_commands=[

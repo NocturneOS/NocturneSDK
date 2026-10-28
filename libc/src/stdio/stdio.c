@@ -1,8 +1,9 @@
 #include "stdio.h"
 #include "file.h"
 #include "sprintf.h"
-#include "stdint.h"
 #include "string.h"
+
+#include <stdint.h>
 #include <stdarg.h>
 
 int puts(const char *text) {

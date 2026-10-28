@@ -8,7 +8,8 @@ __attribute__((noreturn)) void abort();
 
 char *getcwd(char *cwd, int size);
 
-void *malloc(size_t size);
-void *calloc(size_t nmemb, size_t count);
-
 void free(void *ptr);
+
+__attribute__((alloc_size(1), malloc(free))) void *malloc(size_t size);
+__attribute__((alloc_size(1, 2), malloc(free))) void *calloc(size_t nmemb,
+                                                             size_t count);

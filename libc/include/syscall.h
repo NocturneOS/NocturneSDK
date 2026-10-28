@@ -30,6 +30,15 @@
 
 #define SYS_GETCWD 21
 
+#define SYS_CHDIR 22
+
+#define SYS_PROCRUN 23
+
+#define SYS_MREQUEST 24
+#define SYS_MFREE 25
+
+#define SYS_GETTIMEOFDAY 26
+
 size_t _syscall1(size_t num, size_t p1);
 size_t _syscall2(size_t num, size_t p1, size_t p2);
 size_t _syscall3(size_t num, size_t p1, size_t p2, size_t p3);
