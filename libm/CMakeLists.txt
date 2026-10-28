@@ -8,15 +8,18 @@ set(FILES
     src/atan2.c
     src/atan2f.c
     src/cbrt.c
+    src/copysign.c
     src/cos.c
     src/exp.c
     src/fmaxf.c
     src/fminf.c
+    src/fmod.c
     src/log.c
     src/math.c
     src/integral.c
     src/modf.c
     src/pow.c
+    src/scalbn.c
     src/sin.c
     src/sqrt.c
     src/sqrtf.c

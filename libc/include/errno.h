@@ -15,5 +15,7 @@ extern int errno;
 #define ENOSPC 18
 
 #define EDOM 1000
+#define EILSEQ 1001
+#define ERANGE 1001
 
 #endif

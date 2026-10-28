@@ -137,7 +137,14 @@ double sqrt(double x);
 float sqrtf(float x);
 double cbrt(double x);
 double modf(double value, double *intPart);
+double fmod(double x, double y);
 float fmodf(float x, float y);
+
+double copysign(double x, double y);
+float copysignf(float x, float y);
+
+double scalbn(double x, int n);
+float scalbnf(float x, int n);
 
 float fmaxf(float x, float y);
 float fminf(float x, float y);
