@@ -146,5 +146,8 @@ float copysignf(float x, float y);
 double scalbn(double x, int n);
 float scalbnf(float x, int n);
 
+double fmax(double x, double y);
+double fmin(double x, double y);
+
 float fmaxf(float x, float y);
 float fminf(float x, float y);

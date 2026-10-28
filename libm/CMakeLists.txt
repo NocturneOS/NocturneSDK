@@ -11,8 +11,8 @@ set(FILES
     src/copysign.c
     src/cos.c
     src/exp.c
-    src/fmaxf.c
-    src/fminf.c
+    src/fmax.c
+    src/fmin.c
     src/fmod.c
     src/log.c
     src/math.c
