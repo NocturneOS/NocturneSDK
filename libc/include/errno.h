@@ -3,6 +3,8 @@
 
 extern int errno;
 
+#define ENOTSUP 14
+#define ENOSYS 15
 #define EINVAL 5
 #define ENOMEM 16
 #define EAGAIN 3
