@@ -36,9 +36,12 @@ set(FILES
         src/stdio/file.c
 
         src/string/atoi.c
+        src/string/memchr.c
         src/string/memcmp.c
         src/string/memmove.c
         src/string/strchr.c
+        src/string/strrchr.c
+        src/string/strcspn.c
         src/string/strcpy.c
         src/string/strncmp.c
         src/string/strspn.c
@@ -52,6 +55,8 @@ set(FILES
         src/string/strncpy.c
         src/string/strstr.c
         src/string/strtoupper.c
+        src/string/strtol.c
+        src/string/strtoull.c
         src/string/substr.c
 )
 

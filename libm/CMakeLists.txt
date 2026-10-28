@@ -14,7 +14,10 @@ set(FILES
     src/fmax.c
     src/fmin.c
     src/fmod.c
+    src/hyperbolic.c
+    src/ldexp.c
     src/log.c
+    src/logf.c
     src/math.c
     src/integral.c
     src/modf.c

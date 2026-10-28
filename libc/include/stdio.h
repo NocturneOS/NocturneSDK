@@ -1,7 +1,10 @@
 #pragma once
 
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
+
+// Include sprintf.h for vsnprintf
+#include "sprintf.h"
 
 #define EOF (-1)
 
@@ -30,9 +33,11 @@ void fclose(FILE *stream);
 
 __attribute__((malloc(fclose, 1))) FILE *fopen(const char *filename,
                                                const char *mode);
-long unsigned int fread(void *buffer, long unsigned int size, long unsigned int count, FILE *stream);
-long unsigned int fwrite(const void *buffer, long unsigned int size, long unsigned int count, FILE *stream);
+long unsigned int fread(void *buffer, long unsigned int size,
+                        long unsigned int count, FILE *stream);
+long unsigned int fwrite(const void *buffer, long unsigned int size,
+                         long unsigned int count, FILE *stream);
 int fseek(FILE *stream, long offset, int origin);
 long int ftell(FILE *stream);
 
-int feof(FILE* stream);
+int feof(FILE *stream);

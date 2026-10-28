@@ -3,11 +3,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-
-static inline int isdigit(int a) { return a >= '0' && a <= '9'; }
-
-int isalnum(int c);
-int isspace(int c);
+#include <ctype.h>
 
 void *memcpy(void *restrict destination, const void *restrict source,
              long unsigned int n);
@@ -36,3 +32,10 @@ size_t itoh(size_t i, char *buffer);
 size_t strcount(const char *string, char character);
 char *strstr(const char *haystack, const char *needle);
 unsigned long strtoul(const char *str, char **endptr, int base);
+long strtol(const char *str, char **endptr, int base);
+unsigned long long strtoull(const char *str, char **endptr, int base);
+long long strtoll(const char *str, char **endptr, int base);
+
+void *memchr(const void *s, int c, size_t n);
+char *strrchr(const char *s, int c);
+size_t strcspn(const char *s, const char *reject);

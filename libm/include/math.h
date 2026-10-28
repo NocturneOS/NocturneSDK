@@ -124,6 +124,7 @@ double trapezoidal_rule(double (*f)(double), double a, double b,
                         unsigned int steps);
 
 double log(double x);
+float logf(float x);
 double exp(double x);
 
 double asin(double x);
@@ -132,6 +133,14 @@ double atan(double x);
 double atan2(double y, double x);
 
 float atan2f(float y, float x);
+
+double sinh(double x);
+double cosh(double x);
+double tanh(double x);
+
+float sinhf(float x);
+float coshf(float x);
+float tanhf(float x);
 
 double sqrt(double x);
 float sqrtf(float x);
@@ -147,7 +156,10 @@ double scalbn(double x, int n);
 float scalbnf(float x, int n);
 
 double fmax(double x, double y);
-double fmin(double x, double y);
-
 float fmaxf(float x, float y);
+
+double fmin(double x, double y);
 float fminf(float x, float y);
+
+double ldexp(double x, int exp);
+float ldexpf(float x, int exp);
