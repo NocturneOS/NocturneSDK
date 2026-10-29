@@ -24,5 +24,10 @@ struct tm {
   int tm_isdst;
 };
 
+struct tm *gmtime(const time_t *timer);
+struct tm *localtime(const time_t *timer);
+time_t mktime(struct tm *tm);
+time_t time(time_t *tloc);
+
 size_t strftime(char *restrict s, size_t max, const char *restrict format,
                 const struct tm *restrict tm);

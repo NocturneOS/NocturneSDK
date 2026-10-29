@@ -28,6 +28,7 @@ set(FILES
         src/usleep.c
 
         src/gettimeofday.c
+        src/time_impl.c
         src/strftime.c
 
         src/sbrk.c
