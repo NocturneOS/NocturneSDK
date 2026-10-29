@@ -2,7 +2,20 @@
 
 #include <stddef.h>
 
+long strtol(const char *str, char **endptr, int base);
+unsigned long strtoul(const char *str, char **endptr, int base);
+long long strtoll(const char *str, char **endptr, int base);
+unsigned long long strtoull(const char *str, char **endptr, int base);
+double strtod(const char *str, char **endptr);
+
 int atoi(const char *s);
+long atol(const char *s);
+long long atoll(const char *s);
+double atof(const char *s);
+int abs(int j);
+long labs(long j);
+long long llabs(long long j);
+
 __attribute__((noreturn)) void exit(int status);
 __attribute__((noreturn)) void abort();
 

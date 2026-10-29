@@ -18,6 +18,8 @@ set(FILES
     src/ldexp.c
     src/log.c
     src/logf.c
+    src/log10.c
+    src/log2.c
     src/math.c
     src/integral.c
     src/modf.c

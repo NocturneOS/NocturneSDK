@@ -106,6 +106,38 @@ static inline float ceilf(float x) {
 static inline double fabs(double x) { return (x < 0) ? -x : x; }
 static inline float fabsf(float x) { return (x < 0) ? -x : x; }
 
+#define FP_NAN 0
+#define FP_INFINITE 1
+#define FP_ZERO 2
+#define FP_SUBNORMAL 3
+#define FP_NORMAL 4
+
+static inline int fpclassify(double x) {
+    if (is_nan((float)x)) {
+        return FP_NAN;
+    }
+    if (is_inf((float)x)) {
+        return FP_INFINITE;
+    }
+    if (x == 0.0) {
+        return FP_ZERO;
+    }
+    return FP_NORMAL;
+}
+
+static inline int fpclassifyf(float x) {
+    if (is_nan(x)) {
+        return FP_NAN;
+    }
+    if (is_inf(x)) {
+        return FP_INFINITE;
+    }
+    if (x == 0.0f) {
+        return FP_ZERO;
+    }
+    return FP_NORMAL;
+}
+
 #define ASIN_STEPS 6000
 #define ATAN_STEPS 6000
 
@@ -125,6 +157,10 @@ double trapezoidal_rule(double (*f)(double), double a, double b,
 
 double log(double x);
 float logf(float x);
+double log10(double x);
+float log10f(float x);
+double log2(double x);
+float log2f(float x);
 double exp(double x);
 
 double asin(double x);
@@ -146,6 +182,9 @@ double sqrt(double x);
 float sqrtf(float x);
 double cbrt(double x);
 double modf(double value, double *intPart);
+float modff(float value, float *intPart);
+double frexp(double x, int *exp);
+float frexpf(float x, int *exp);
 double fmod(double x, double y);
 float fmodf(float x, float y);
 

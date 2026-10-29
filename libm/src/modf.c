@@ -1,38 +1,71 @@
 #include "math.h"
 
-double modf(double value, double* intPart) {
-    if (intPart != NULL) {
-        *intPart = (value >= 0) ? floor(value) : ceil(value);
-        return value - (*intPart);
+double modf(double value, double *intPart) {
+    if (intPart == 0) {
+        return value;
     }
-    return 0.0f;
+    if (value >= 0) {
+        *intPart = (double)(long long)value;
+        return value - *intPart;
+    } else {
+        *intPart = (double)(long long)value;
+        return value - *intPart;
+    }
 }
 
-double fmod(double dividend, double divisor) {
-    if (divisor == 0.0) {
-        return NAN;
+float modff(float value, float *intPart) {
+    if (intPart == 0) {
+        return value;
     }
-
-    double quotient = dividend / divisor;
-    int intPart = (int) quotient; // Integer part
-    double fractionalPart = quotient - intPart; // Fractional part
-
-    double result = fractionalPart * divisor;
-    return result;
+    if (value >= 0) {
+        *intPart = (float)(long long)value;
+        return value - *intPart;
+    } else {
+        *intPart = (float)(long long)value;
+        return value - *intPart;
+    }
 }
 
-float fmodf(float x, float y) {
-    if (y == 0.0f) {
-        // Handle division by zero (return NaN as per standard)
-        return NAN;
+double frexp(double x, int *exp) {
+    if (x == 0.0) {
+        if (exp) *exp = 0;
+        return 0.0;
     }
+    int e = 0;
+    double val = x;
+    if (val >= 1.0) {
+        while (val >= 1.0) {
+            val /= 2.0;
+            e++;
+        }
+    } else if (val < 0.5 && val > -0.5) {
+        while (val >= -0.5 && val < 0.5 && val != 0.0) {
+            val *= 2.0;
+            e--;
+        }
+    }
+    if (exp) *exp = e;
+    return val;
+}
 
-    // Calculate the quotient as an integer
-    float quotient = x / y;
-    int intPart = (int) quotient; // Integer part
-
-    // Calculate the remainder
-    float remainder = (x - intPart) * y;
-
-    return remainder;
+float frexpf(float x, int *exp) {
+    if (x == 0.0f) {
+        if (exp) *exp = 0;
+        return 0.0f;
+    }
+    int e = 0;
+    float val = x;
+    if (val >= 1.0f) {
+        while (val >= 1.0f) {
+            val /= 2.0f;
+            e++;
+        }
+    } else if (val < 0.5f && val > -0.5f) {
+        while (val >= -0.5f && val < 0.5f && val != 0.0f) {
+            val *= 2.0f;
+            e--;
+        }
+    }
+    if (exp) *exp = e;
+    return val;
 }

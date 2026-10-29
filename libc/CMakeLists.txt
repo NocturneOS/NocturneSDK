@@ -28,14 +28,17 @@ set(FILES
         src/usleep.c
 
         src/gettimeofday.c
+        src/strftime.c
 
         src/sbrk.c
         src/malloc_free.c
+        src/stdlib_misc.c
 
         src/stdio/stdio.c
         src/stdio/file.c
 
         src/string/atoi.c
+        src/string/strtod.c
         src/string/memchr.c
         src/string/memcmp.c
         src/string/memmove.c
