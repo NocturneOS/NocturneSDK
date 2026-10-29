@@ -40,4 +40,6 @@ long unsigned int fwrite(const void *buffer, long unsigned int size,
 int fseek(FILE *stream, long offset, int origin);
 long int ftell(FILE *stream);
 
+int fputs(const char *restrict str, FILE *restrict stream);
+
 int feof(FILE *stream);

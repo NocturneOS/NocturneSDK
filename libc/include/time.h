@@ -10,6 +10,8 @@ typedef uint64_t time_t;
 typedef int32_t suseconds_t;
 typedef uint32_t useconds_t;
 
+typedef size_t clock_t;
+
 struct tm {
   int tm_sec;
   int tm_min;
