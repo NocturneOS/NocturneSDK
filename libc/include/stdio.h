@@ -5,6 +5,7 @@
 
 // Include sprintf.h for vsnprintf
 #include "sprintf.h"
+#include <stdarg.h>
 
 #define EOF (-1)
 
@@ -28,6 +29,13 @@ int putchar(int ch);
 __attribute__((format(printf, 1, 2))) int printf(const char *text, ...);
 __attribute__((format(printf, 2, 3))) int fprintf(FILE *stream,
                                                   const char *text, ...);
+
+int scanf(const char *format, ...);
+int fscanf(FILE *stream, const char *format, ...);
+int sscanf(const char *str, const char *format, ...);
+int vscanf(const char *format, va_list ap);
+int vfscanf(FILE *stream, const char *format, va_list ap);
+int vsscanf(const char *str, const char *format, va_list ap);
 
 void fclose(FILE *stream);
 
