@@ -34,9 +34,11 @@ set(FILES
         src/sbrk.c
         src/malloc_free.c
         src/stdlib_misc.c
+        src/bsearch.c
 
         src/stdio/stdio.c
         src/stdio/file.c
+        src/stdio/scanf.c
 
         src/string/atoi.c
         src/string/strtod.c

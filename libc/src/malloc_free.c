@@ -14,3 +14,26 @@ void free(void *ptr) {
   _syscall1(SYS_MFREE, (size_t)ptr);
   (void)ptr;
 }
+
+void *realloc(void *ptr, int new_size) {
+  if (ptr == NULL) {
+    return malloc(new_size);
+  }
+
+  if (new_size == 0) {
+    free(ptr);
+    return NULL;
+  }
+
+  void *n = malloc(new_size);
+
+  if (n == NULL) {
+    return NULL;
+  }
+
+  memcpy(n, ptr, new_size);
+
+  free(ptr);
+
+  return n;
+}
