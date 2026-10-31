@@ -8,6 +8,9 @@ long long strtoll(const char *str, char **endptr, int base);
 unsigned long long strtoull(const char *str, char **endptr, int base);
 double strtod(const char *str, char **endptr);
 
+void *bsearch(const void *key, const void *base, size_t nmemb, size_t size,
+              int (*compar)(const void *, const void *));
+
 int atoi(const char *s);
 long atol(const char *s);
 long long atoll(const char *s);
@@ -26,3 +29,4 @@ void free(void *ptr);
 __attribute__((alloc_size(1), malloc(free))) void *malloc(size_t size);
 __attribute__((alloc_size(1, 2), malloc(free))) void *calloc(size_t nmemb,
                                                              size_t count);
+void *realloc(void *ptr, int new_size);
