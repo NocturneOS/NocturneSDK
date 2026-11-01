@@ -17,6 +17,9 @@ extern int errno;
 #define ENOMEM 17
 #define ENOSPC 18
 #define EPERM 20
+#define EBUSY 21
+#define ENOEXEC 22
+
 // Errors below are not thrown by kernel. They are thrown in libc itself.
 
 #define EDOM 1000
@@ -32,12 +35,10 @@ extern int errno;
 #define ECHILD 9002
 #define EDEADLK 9003
 #define E2BIG 9004
-#define EBUSY 9005
 #define ESRCH 9006
 #define ENXIO 9007
 #define ENOTTY 9008
 #define EPIPE 9009
-#define ENOEXEC 9010
 #define ENODEV 9011
 #define EXDEV 9012
 #define EINTR 9013
@@ -49,4 +50,5 @@ extern int errno;
 #define ENOLCK 9019
 #define ENOTDIR 9020
 #define ENOTEMPTY 9021
+
 #endif
