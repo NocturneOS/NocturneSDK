@@ -3,7 +3,7 @@
 
 // TODO: Make a real heap implementation with alignment support.
 
-void *malloc(int size) {
+void *malloc(long unsigned size) {
   size_t ptr = _syscall1(SYS_MREQUEST, (size_t)size);
   // size_t ptr = _syscall1(SYS_SBRK, (size_t)size);
 
@@ -15,7 +15,7 @@ void free(void *ptr) {
   (void)ptr;
 }
 
-void *realloc(void *ptr, int new_size) {
+void *realloc(void *ptr, long unsigned new_size) {
   if (ptr == NULL) {
     return malloc(new_size);
   }

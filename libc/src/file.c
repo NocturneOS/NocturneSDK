@@ -1,7 +1,7 @@
-#include "file.h"
+#include "unistd.h"
 #include "syscall.h"
 
-int open(const char *filename, size_t mode) {
+int open(const char *filename, size_t mode, ...) {
   int fd = _syscall2(SYS_OPEN, (size_t)filename, mode);
 
   return fd;
@@ -18,14 +18,17 @@ int tell(int fd) {
   return value;
 }
 
-int read(int fd, size_t size, size_t count, void *buffer) {
-  return (int)_syscall3(SYS_READ, (size_t)fd, (size_t)buffer, size * count);
+ssize_t read(int fd, void *buffer, size_t byte_count) {
+  return (int)_syscall3(SYS_READ, (size_t)fd, (size_t)buffer, byte_count);
 }
 
-int write(int fd, size_t size, size_t count, const void *buffer) {
-  return (int)_syscall3(SYS_WRITE, (size_t)fd, (size_t)buffer, size * count);
+ssize_t write(int fd, const void *buffer, size_t byte_count) {
+  return (int)_syscall3(SYS_WRITE, (size_t)fd, (size_t)buffer, byte_count);
 }
 
 int flush(int fd) { return _syscall1(SYS_FLUSH, (size_t)fd); }
 
-void close(int fd) { _syscall1(SYS_CLOSE, (size_t)fd); }
+int close(int fd) {
+  _syscall1(SYS_CLOSE, (size_t)fd);
+  return 0;
+}

@@ -1,8 +1,8 @@
-#include "file.h"
 #include "fcntl.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "unistd.h"
 #include <assert.h>
 
 static size_t chrmode2intmode(const char *mode) {
@@ -13,10 +13,10 @@ static size_t chrmode2intmode(const char *mode) {
   while ((mode_byte = *mode++)) {
     switch (mode_byte) {
     case 'r':
-      imode |= O_READ;
+      imode |= O_RDONLY;
       break;
     case 'w':
-      imode |= O_WRITE;
+      imode |= O_WRONLY;
       break;
     case 'a':
       imode |= O_APPEND;
@@ -52,6 +52,21 @@ FILE *fopen(const char *filename, const char *mode) {
   return fp;
 }
 
+FILE *fdopen(int fd, const char *mode) {
+  assert(mode != NULL);
+
+  FILE *fp = malloc(sizeof(FILE));
+
+  if (fp == NULL) {
+    return NULL;
+  }
+
+  fp->__fd = fd;
+  fp->mode = chrmode2intmode(mode);
+
+  return fp;
+}
+
 void fclose(FILE *stream) {
   assert(stream != NULL);
 
@@ -62,7 +77,7 @@ void fclose(FILE *stream) {
 
 long unsigned int fread(void *buffer, long unsigned int size,
                         long unsigned int count, FILE *stream) {
-  int rd_count = read(stream->__fd, size, count, buffer);
+  int rd_count = read(stream->__fd, buffer, size * count);
 
   if (rd_count == 0) {
     stream->__last_read_end = true;
@@ -73,7 +88,7 @@ long unsigned int fread(void *buffer, long unsigned int size,
 
 long unsigned int fwrite(const void *buffer, long unsigned int size,
                          long unsigned int count, FILE *stream) {
-  int wr_count = write(stream->__fd, size, count, buffer);
+  int wr_count = write(stream->__fd, buffer, size * count);
 
   return wr_count;
 }

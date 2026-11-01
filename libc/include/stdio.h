@@ -16,6 +16,8 @@
 typedef struct {
   int __fd;
 
+  size_t mode;
+
   bool __last_read_end;
 } FILE;
 
@@ -41,6 +43,7 @@ void fclose(FILE *stream);
 
 __attribute__((malloc(fclose, 1))) FILE *fopen(const char *filename,
                                                const char *mode);
+FILE *fdopen (int fd, const char *mode);
 long unsigned int fread(void *buffer, long unsigned int size,
                         long unsigned int count, FILE *stream);
 long unsigned int fwrite(const void *buffer, long unsigned int size,
