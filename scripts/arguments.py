@@ -15,3 +15,4 @@ class BuildArguments:
     sdk_source: str
 
     reconfigure: list[str]
+    clean: list[str]

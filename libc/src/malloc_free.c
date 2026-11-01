@@ -10,6 +10,14 @@ void *malloc(long unsigned size) {
   return (void *)ptr;
 }
 
+void *calloc(size_t nmemb, size_t count) {
+  void* buf = malloc(nmemb * count);
+
+  memset(buf, 0, nmemb * count);
+
+  return buf;
+}
+
 void free(void *ptr) {
   _syscall1(SYS_MFREE, (size_t)ptr);
   (void)ptr;

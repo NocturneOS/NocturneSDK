@@ -2,6 +2,7 @@ import os
 import pathlib
 import subprocess
 import sys
+import shutil
 
 from . import arguments, git, cache, log, host
 from .tools import TOOLS, HIDDEN_TOOLS
@@ -51,6 +52,16 @@ def update_caches(args: arguments.BuildArguments):
 
     for [cur_dir, target] in zip(build_dirs, args.targets):
         rpath = pathlib.Path(cur_dir)
+
+        for tool in args.clean:
+            log.warning(f"tool: cleaning tool {tool}/{target}")
+
+            shutil.rmtree(rpath / tool, ignore_errors=True)
+
+            # Clean state of the removed dir
+            bcache = cache.BuildCache(rpath)
+
+            bcache.reset_state(tool)
 
         for tool in args.reconfigure:
             log.warning(f"tool: resetting state for tool {tool}/{target}")

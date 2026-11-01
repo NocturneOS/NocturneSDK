@@ -1,39 +1,34 @@
 #include "stdio.h"
-#include "file.h"
 #include "sprintf.h"
 #include "string.h"
+#include "unistd.h"
 
-#include <stdint.h>
 #include <stdarg.h>
+#include <stdint.h>
+
 
 int puts(const char *text) {
   const char newline = '\n';
 
   int length = strlen(text);
 
-  int result = write(FD_STDOUT, 1, length, text);
+  int result = write(FD_STDOUT, text, length);
 
-  result += write(FD_STDOUT, 1, 1, &newline);
+  result += write(FD_STDOUT, &newline, 1);
 
   return result;
 }
 
 int putchar(int ch) {
-  int result = write(FD_STDOUT, 1, 1, &ch);
+  int result = write(FD_STDOUT, &ch, 1);
 
   return result;
 }
 
-/**
- * @brief Подфункция-обработчик для tty_printf
- *
- * @param format - строка форматов
- * @param args - аргументы
- */
 static void __print(char character, void *arg) {
   (void)arg;
 
-  write(FD_STDOUT, 1, 1, &character);
+  write(FD_STDOUT, &character, 1);
 }
 
 int printf(const char *text, ...) {
@@ -41,6 +36,23 @@ int printf(const char *text, ...) {
   va_start(args, text);
 
   int result = vfctprintf(__print, 0, text, args);
+
+  va_end(args);
+
+  return result;
+}
+
+static void __fprint(char character, void *arg) {
+  FILE* stream = arg;
+
+  fwrite(&character, 1, 1, stream);
+}
+
+int fprintf(FILE *stream, const char *text, ...) {
+  va_list args;
+  va_start(args, text);
+
+  int result = vfctprintf(__fprint, stream, text, args);
 
   va_end(args);
 

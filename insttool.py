@@ -68,6 +68,15 @@ def main():
     )
 
     parser.add_argument(
+        "--clean",
+        help="Tools to be clean before build",
+        type=str,
+        nargs="+",
+        choices=tools.TOOLS.keys(),
+        default=[],
+    )
+
+    parser.add_argument(
         "--reconfigure",
         help="Tools to be reconfigured",
         type=str,
@@ -93,6 +102,7 @@ def main():
             download_only=args.download_only,
             sdk_source=pathlib.Path(__file__).absolute().parent,
             reconfigure=args.reconfigure,
+            clean=args.clean,
         )
     )
 

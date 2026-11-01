@@ -3,6 +3,8 @@
 #include "stdlib.h"
 #include "string.h"
 #include "unistd.h"
+
+#include <sys/stat.h>
 #include <assert.h>
 
 static size_t chrmode2intmode(const char *mode) {
@@ -105,4 +107,10 @@ int fputs(const char *restrict str, FILE *restrict stream) {
   size_t len = strlen(str);
 
   return fwrite(str, 1, len, stream);
+}
+
+int fstat(int fd, struct stat *buf) {
+  fprintf(stderr, "fstat() is unimplemented (fd=%d; buf=%p)\n", fd, buf);
+
+  abort();
 }

@@ -30,25 +30,25 @@ extern int errno;
 // Kernel doesn't throw them, but those errors are used for
 // UNIX/POSIX-compatibility.
 
-#define EFAULT 9000
-#define EFBIG 9001
-#define ECHILD 9002
-#define EDEADLK 9003
-#define E2BIG 9004
-#define ESRCH 9006
-#define ENXIO 9007
-#define ENOTTY 9008
-#define EPIPE 9009
-#define ENODEV 9011
-#define EXDEV 9012
-#define EINTR 9013
-#define EISDIR 9014
-#define EMFILE 9015
-#define EMLINK 9016
-#define ENAMETOOLONG 9017
-#define ENFILE 9018
-#define ENOLCK 9019
-#define ENOTDIR 9020
-#define ENOTEMPTY 9021
+#define EFAULT 2000
+#define EFBIG 2001
+#define ECHILD 2002
+#define EDEADLK 2003
+#define E2BIG 2004
+#define ESRCH 2006
+#define ENXIO 2007
+#define ENOTTY 2008
+#define EPIPE 2009
+#define ENODEV 2011
+#define EXDEV 2012
+#define EINTR 2013
+#define EISDIR 2014
+#define EMFILE 2015
+#define EMLINK 2016
+#define ENAMETOOLONG 2017
+#define ENFILE 2018
+#define ENOLCK 2019
+#define ENOTDIR 2020
+#define ENOTEMPTY 2021
 
 #endif
