@@ -16,7 +16,7 @@
 typedef struct {
   int __fd;
 
-  size_t mode;
+  size_t __mode;
 
   bool __last_read_end;
 } FILE;

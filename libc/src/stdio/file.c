@@ -62,7 +62,7 @@ FILE *fdopen(int fd, const char *mode) {
   }
 
   fp->__fd = fd;
-  fp->mode = chrmode2intmode(mode);
+  fp->__mode = chrmode2intmode(mode);
 
   return fp;
 }

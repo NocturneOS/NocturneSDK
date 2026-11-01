@@ -19,6 +19,8 @@ set(FILES
         src/syscall.c
         src/string.c
         src/ctype.c
+        src/clock.c
+        src/errno.c
         src/rand.c
         src/exit.c
         src/file.c
@@ -39,6 +41,7 @@ set(FILES
         src/stdio/stdio.c
         src/stdio/file.c
         src/stdio/scanf.c
+        src/stdio/reserved_fds.c
 
         src/string/atoi.c
         src/string/strtod.c
