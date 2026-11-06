@@ -109,6 +109,38 @@ int fputs(const char *__restrict str, FILE *__restrict stream) {
   return fwrite(str, 1, len, stream);
 }
 
+char *fgets(char *__restrict str, int count, FILE *__restrict stream) {
+  int i = 0;
+
+  if (str == NULL || stream == NULL || count <= 0) {
+    return NULL;
+  }
+
+  // Read at most count - 1 characters, stopping after a newline.
+  while (i < count - 1) {
+    unsigned char ch;
+
+    if (fread(&ch, 1, 1, stream) != 1) {
+      break;
+    }
+
+    str[i++] = (char)ch;
+
+    if (ch == '\n') {
+      break;
+    }
+  }
+
+  // Nothing read and a read was attempted: either EOF or a read error.
+  if (i == 0 && count > 1) {
+    return NULL;
+  }
+
+  str[i] = '\0';
+
+  return str;
+}
+
 int fflush(FILE *stream) { return flush(stream->__fd); }
 
 int fstat(int fd, struct stat *buf) {
