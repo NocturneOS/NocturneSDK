@@ -5,6 +5,7 @@
 
 #include <stdarg.h>
 #include <stdint.h>
+#include <stdio.h>
 
 
 int puts(const char *text) {
@@ -42,19 +43,3 @@ int printf(const char *text, ...) {
   return result;
 }
 
-static void __fprint(char character, void *arg) {
-  FILE* stream = arg;
-
-  fwrite(&character, 1, 1, stream);
-}
-
-int fprintf(FILE *stream, const char *text, ...) {
-  va_list args;
-  va_start(args, text);
-
-  int result = vfctprintf(__fprint, stream, text, args);
-
-  va_end(args);
-
-  return result;
-}

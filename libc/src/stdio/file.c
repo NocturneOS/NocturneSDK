@@ -116,3 +116,27 @@ int fstat(int fd, struct stat *buf) {
 
   abort();
 }
+
+
+int fputc(int c, FILE *stream) {
+  int wr_count = write(stream->__fd, &c, 1);
+
+  return wr_count;
+}
+
+static void __fprint(char character, void *arg) {
+  FILE* stream = arg;
+
+  fwrite(&character, 1, 1, stream);
+}
+
+int fprintf(FILE *stream, const char *text, ...) {
+  va_list args;
+  va_start(args, text);
+
+  int result = vfctprintf(__fprint, stream, text, args);
+
+  va_end(args);
+
+  return result;
+}

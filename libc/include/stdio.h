@@ -33,11 +33,8 @@ int puts(const char *text);
 int putchar(int ch);
 
 __attribute__((format(printf, 1, 2))) int printf(const char *text, ...);
-__attribute__((format(printf, 2, 3))) int fprintf(FILE *stream,
-                                                  const char *text, ...);
 
 int scanf(const char *format, ...);
-int fscanf(FILE *stream, const char *format, ...);
 int sscanf(const char *str, const char *format, ...);
 int vscanf(const char *format, va_list ap);
 int vfscanf(FILE *stream, const char *format, va_list ap);
@@ -59,3 +56,8 @@ int fputs(const char *__restrict str, FILE *__restrict stream);
 
 int feof(FILE *stream);
 int fflush(FILE *stream);
+
+int fputc(int c, FILE *stream);
+int fscanf(FILE *stream, const char *format, ...);
+__attribute__((format(printf, 2, 3))) int fprintf(FILE *stream,
+                                                  const char *text, ...);
