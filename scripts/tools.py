@@ -52,6 +52,7 @@ TOOLS = {
             "--disable-tests",
             "--disable-bootstrap",
             "--disable-libstdcxx",
+            "--disable-libgcc",
         ],
         priority=1,
     ),
@@ -102,10 +103,12 @@ TOOLS = {
         build_commands=[
             ["make", "-j", "{IN_JOBS}", "all-gcc"],
             ["make", "-j", "{IN_JOBS}", "all-target-libgcc"],
+            # ["make", "-j", "{IN_JOBS}", "all-target-libstdc++-v3"],
         ],
         install_commands=[
             ["make", "install-gcc"],
             ["make", "install-target-libgcc"],
+            # ["make", "install-target-libstdc++-v3"],
         ],
         priority=4,
     ),

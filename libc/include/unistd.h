@@ -3,10 +3,6 @@
 #include <stddef.h>
 #include <sys/types.h>
 
-#define SEEK_BEGIN 0
-#define SEEK_CURRENT 1
-#define SEEK_END 2
-
 void *sbrk(ssize_t increment);
 int usleep(size_t usec);
 

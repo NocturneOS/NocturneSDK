@@ -25,6 +25,10 @@ extern FILE *stderr;
 extern FILE *stdout;
 extern FILE *stdin;
 
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+
 int puts(const char *text);
 int putchar(int ch);
 
@@ -43,7 +47,7 @@ void fclose(FILE *stream);
 
 __attribute__((malloc(fclose, 1))) FILE *fopen(const char *filename,
                                                const char *mode);
-FILE *fdopen (int fd, const char *mode);
+FILE *fdopen(int fd, const char *mode);
 long unsigned int fread(void *buffer, long unsigned int size,
                         long unsigned int count, FILE *stream);
 long unsigned int fwrite(const void *buffer, long unsigned int size,
@@ -51,6 +55,7 @@ long unsigned int fwrite(const void *buffer, long unsigned int size,
 int fseek(FILE *stream, long offset, int origin);
 long int ftell(FILE *stream);
 
-int fputs(const char *restrict str, FILE *restrict stream);
+int fputs(const char *__restrict str, FILE *__restrict stream);
 
 int feof(FILE *stream);
+int fflush(FILE *stream);

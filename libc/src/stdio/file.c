@@ -4,8 +4,8 @@
 #include "string.h"
 #include "unistd.h"
 
-#include <sys/stat.h>
 #include <assert.h>
+#include <sys/stat.h>
 
 static size_t chrmode2intmode(const char *mode) {
   size_t imode = 0;
@@ -103,11 +103,13 @@ long int ftell(FILE *stream) { return tell(stream->__fd); }
 
 int feof(FILE *stream) { return (int)stream->__last_read_end; }
 
-int fputs(const char *restrict str, FILE *restrict stream) {
+int fputs(const char *__restrict str, FILE *__restrict stream) {
   size_t len = strlen(str);
 
   return fwrite(str, 1, len, stream);
 }
+
+int fflush(FILE *stream) { return flush(stream->__fd); }
 
 int fstat(int fd, struct stat *buf) {
   fprintf(stderr, "fstat() is unimplemented (fd=%d; buf=%p)\n", fd, buf);

@@ -1,7 +1,9 @@
 #ifndef _ERRNO_H
 #define _ERRNO_H
 
-extern int errno;
+extern int __errno;
+
+#define errno __errno
 
 #define EEXIST 1
 #define EAGAIN 3

@@ -1,2 +1,2 @@
 // FIXME: Make it thread-local.
-int errno;
+int __errno;

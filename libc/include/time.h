@@ -1,5 +1,6 @@
 #pragma once
 
+#include <common.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -33,5 +34,5 @@ struct tm *localtime(const time_t *timer);
 time_t mktime(struct tm *tm);
 time_t time(time_t *tloc);
 
-size_t strftime(char *restrict s, size_t max, const char *restrict format,
-                const struct tm *restrict tm);
+size_t strftime(char *__restrict s, size_t max, const char *__restrict format,
+                const struct tm *__restrict tm);

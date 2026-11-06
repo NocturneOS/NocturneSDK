@@ -13,8 +13,8 @@
  *   vscanf  -> file source   (wraps stdin)
  */
 
-#include "file.h"
 #include "stdio.h"
+#include "unistd.h"
 
 #include <ctype.h>
 #include <stdarg.h>

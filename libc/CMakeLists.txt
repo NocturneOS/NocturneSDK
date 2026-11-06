@@ -69,6 +69,10 @@ set(FILES
         src/string/substr.c
 )
 
+if((${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386") OR (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i486") OR (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i586"))
+        set(FILES ${FILES} src/setjmp.s)
+endif()
+
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
 set(CMAKE_ASM_FLAGS "-g")
