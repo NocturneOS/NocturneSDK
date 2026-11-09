@@ -1,16 +1,20 @@
 .extern main
+.extern exit
 
-.globl _start
+.text
+.globl	_start
+.type	_start, @function
 _start:
-	mov (%rsp), %rdi
-	mov 8(%rsp), %rsi
+	mov (%rsp), %rdi     # argc
+	mov 8(%rsp), %rsi    # argv
+	mov 16(%rsp), %rdx   # envp
 
 	call main
 	
 	# Exit
-	mov $3, %rax
+	movl %eax, %edi
 
-	# FIXME: Use main()'s return value.
-	xor %rdi, %rdi
+	call exit
 
-	syscall
+.size _start, . - _start
+.section .note.GNU-stack,"",@progbits
