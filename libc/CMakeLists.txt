@@ -26,6 +26,10 @@ set(FILES
         src/file.c
         src/getcwd.c
         src/syscall.c
+        src/unistd/rmdir.c
+        src/unistd/unlink.c
+        src/unistd/rename.c
+        src/unistd/lseek.c
         src/sprintf.c
         src/usleep.c
 
@@ -37,6 +41,7 @@ set(FILES
         src/malloc_free.c
         src/stdlib_misc.c
         src/bsearch.c
+        src/qsort.c
 
         src/stdio/stdio.c
         src/stdio/file.c

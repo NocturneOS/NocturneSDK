@@ -13,14 +13,31 @@
 #define S_IFLNK 0120000  /* Symbolic link.  */
 #define S_IFSOCK 0140000 /* Socket.  */
 
-#define __S_ISTYPE(mode, mask) (((mode) & __S_IFMT) == (mask))
+/* File permission bits. */
+#define S_IRWXU 00700 /* Owner: read, write, execute. */
+#define S_IRUSR 00400 /* Owner: read.  */
+#define S_IWUSR 00200 /* Owner: write.  */
+#define S_IXUSR 00100 /* Owner: execute.  */
 
-#define S_ISDIR(mode) __S_ISTYPE((mode), __S_IFDIR)
-#define S_ISCHR(mode) __S_ISTYPE((mode), __S_IFCHR)
-#define S_ISBLK(mode) __S_ISTYPE((mode), __S_IFBLK)
-#define S_ISREG(mode) __S_ISTYPE((mode), __S_IFREG)
-#define S_ISFIFO(mode) __S_ISTYPE((mode), __S_IFIFO)
-#define S_ISLNK(mode) __S_ISTYPE((mode), __S_IFLNK)
+#define S_IRWXG 00070 /* Group: read, write, execute. */
+#define S_IRGRP 00040 /* Group: read.  */
+#define S_IWGRP 00020 /* Group: write.  */
+#define S_IXGRP 00010 /* Group: execute.  */
+
+#define S_IRWXO 00007 /* Others: read, write, execute. */
+#define S_IROTH 00004 /* Others: read.  */
+#define S_IWOTH 00002 /* Others: write.  */
+#define S_IXOTH 00001 /* Others: execute.  */
+
+#define __S_ISTYPE(mode, mask) (((mode) & S_IFMT) == (mask))
+
+#define S_ISDIR(mode) __S_ISTYPE((mode), S_IFDIR)
+#define S_ISCHR(mode) __S_ISTYPE((mode), S_IFCHR)
+#define S_ISBLK(mode) __S_ISTYPE((mode), S_IFBLK)
+#define S_ISREG(mode) __S_ISTYPE((mode), S_IFREG)
+#define S_ISFIFO(mode) __S_ISTYPE((mode), S_IFIFO)
+#define S_ISLNK(mode) __S_ISTYPE((mode), S_IFLNK)
+#define S_ISSOCK(mode) __S_ISTYPE((mode), S_IFSOCK)
 
 // stat. Some of fields are zeroed out in NocturneOS, and left for POSIX
 // compatibility

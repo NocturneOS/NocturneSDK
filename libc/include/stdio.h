@@ -62,3 +62,5 @@ int fputc(int c, FILE *stream);
 int fscanf(FILE *stream, const char *format, ...);
 __attribute__((format(printf, 2, 3))) int fprintf(FILE *stream,
                                                   const char *text, ...);
+
+int rename(const char *old_path, const char *new_path);
