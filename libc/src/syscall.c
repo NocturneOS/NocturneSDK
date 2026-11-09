@@ -4,7 +4,8 @@
  * @brief Syscall management
  * @version 0.3.4
  * @date 2023-12-10
- * @copyright Copyright SayoriOS Team (c) 2023
+ * @copyright Copyright SayoriOS Team (c) 2023;
+ * @copyright NocturneOS developers (c) 2025-2026;
  */
 
 #include "syscall.h"
