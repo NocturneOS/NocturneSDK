@@ -86,6 +86,13 @@ def main():
     )
 
     parser.add_argument(
+        "--no-install",
+        help="Do not install built toolchain to the prefix/installation directory",
+        action="store_true",
+        default=False,
+    )
+
+    parser.add_argument(
         "--prefix", "-p", help="SDK installation path", required=True, type=str
     )
 
@@ -103,6 +110,7 @@ def main():
             sdk_source=pathlib.Path(__file__).absolute().parent,
             reconfigure=args.reconfigure,
             clean=args.clean,
+            no_install=args.no_install,
         )
     )
 

@@ -27,6 +27,11 @@ struct tm {
   int tm_isdst;
 };
 
+struct timespec {
+  time_t tv_sec;
+  long int tv_nsec;
+};
+
 clock_t clock(void);
 
 struct tm *gmtime(const time_t *timer);

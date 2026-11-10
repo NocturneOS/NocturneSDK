@@ -219,7 +219,7 @@ def begin(args: arguments.BuildArguments):
 
             log.ok(f"{tool_name}/{raw_target_name}: built")
 
-            if not bcache.is_installed(tool_name):
+            if (not bcache.is_installed(tool_name)) and (not args.no_install):
                 log.note(f"{tool_name}/{raw_target_name}: installing")
 
                 if tool.build_system == "configure_make":

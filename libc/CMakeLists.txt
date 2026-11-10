@@ -31,6 +31,8 @@ set(FILES
         src/unistd/rename.c
         src/unistd/lseek.c
         src/sprintf.c
+        src/mkdir.c
+        src/stat.c
         src/usleep.c
 
         src/gettimeofday.c

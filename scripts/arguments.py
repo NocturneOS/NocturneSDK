@@ -11,6 +11,7 @@ class BuildArguments:
     gcc_langs: list[str]
 
     download_only: bool
+    no_install: bool
 
     sdk_source: str
 
