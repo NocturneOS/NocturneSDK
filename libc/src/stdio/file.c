@@ -149,15 +149,26 @@ int fstat(int fd, struct stat *buf) {
   abort();
 }
 
-
 int fputc(int c, FILE *stream) {
   int wr_count = write(stream->__fd, &c, 1);
 
   return wr_count;
 }
 
+int fgetc(FILE *stream) {
+  int ch;
+
+  int wr_count = read(stream->__fd, &ch, 1);
+
+  if (wr_count == 0) {
+    return -1;
+  }
+
+  return ch;
+}
+
 static void __fprint(char character, void *arg) {
-  FILE* stream = arg;
+  FILE *stream = arg;
 
   fwrite(&character, 1, 1, stream);
 }

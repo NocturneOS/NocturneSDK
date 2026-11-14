@@ -55,6 +55,8 @@ long int ftell(FILE *stream);
 int fputs(const char *__restrict str, FILE *__restrict stream);
 char *fgets(char *__restrict str, int count, FILE *__restrict stream);
 
+int fgetc(FILE *stream);
+
 int feof(FILE *stream);
 int fflush(FILE *stream);
 

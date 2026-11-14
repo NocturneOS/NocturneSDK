@@ -21,6 +21,7 @@ extern int __errno;
 #define EPERM 20
 #define EBUSY 21
 #define ENOEXEC 22
+#define ECHILD 23
 
 // Errors below are not thrown by kernel. They are thrown in libc itself.
 
@@ -34,7 +35,6 @@ extern int __errno;
 
 #define EFAULT 2000
 #define EFBIG 2001
-#define ECHILD 2002
 #define EDEADLK 2003
 #define E2BIG 2004
 #define ESRCH 2006
