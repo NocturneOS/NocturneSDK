@@ -1,49 +1,39 @@
-// #include <stddef.h>
 #include "string.h"
+#include "common.h"
 
-/*
+/* size_t stores may alias any object, just like char stores do. */
+#if defined(__GNUC__)
+typedef size_t __attribute__((may_alias)) memcpy_word;
+#else
+typedef size_t memcpy_word;
+#endif
+
+// Avoid replacing memcpy's code with call to itself
+__LIBC_NO_LOOP_DISTRIBUTE
 void *memcpy(void *restrict destination, const void *restrict source,
              long unsigned int n) {
-  size_t *tmp_dest = (size_t *)destination;
-  size_t *tmp_src = (size_t *)source;
-  size_t len = n / sizeof(size_t);
-  size_t i = 0;
-  size_t tail = n & (sizeof(size_t) - 1);
+  unsigned char *dest = destination;
+  const unsigned char *src = source;
 
-  for (; i < len; i++) {
-    *tmp_dest++ = *tmp_src++;
-  }
+  // If both pointers are machine-word aligned, copy whole words first.
+  // Otherwise fall back to a byte copy.
+  if ((((uintptr_t)dest | (uintptr_t)src) & (sizeof(size_t) - 1)) == 0) {
+    memcpy_word *word_dest = (memcpy_word *)dest;
+    const memcpy_word *word_src = (const memcpy_word *)src;
+    size_t words = n / sizeof(size_t);
 
-  if (tail) {
-    char *dest = (char *)destination;
-    const char *src = (const char *)source;
-
-    for (i = n - tail; i < n; i++) {
-      dest[i] = src[i];
+    while (words--) {
+      *word_dest++ = *word_src++;
     }
+
+    dest = (unsigned char *)word_dest;
+    src = (const unsigned char *)word_src;
+    n &= sizeof(size_t) - 1;
+  }
+
+  while (n--) {
+    *dest++ = *src++;
   }
 
   return destination;
-}
-*/
-/*
-void *memcpy(void *restrict destination, const void *restrict source,
-             long unsigned int n) {
-  unsigned char *d = destination;
-  unsigned char *s = source;
-
-  for (size_t i = 0; i < n; i++) {
-    d[i] = s[i];
-  }
-
-  return destination;
-}
-*/
-
-void *memcpy(void *dest, const void *src, size_t len) {
-  char *d = dest;
-  const char *s = src;
-  while (len--)
-    *d++ = *s++;
-  return dest;
 }
