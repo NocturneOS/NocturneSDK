@@ -33,6 +33,7 @@ set(FILES
         src/sprintf.c
         src/mkdir.c
         src/stat.c
+        src/proc.c
         src/usleep.c
 
         src/gettimeofday.c
@@ -83,7 +84,10 @@ endif()
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
 set(CMAKE_ASM_FLAGS "-g")
-set(CMAKE_C_FLAGS "-fanalyzer -nostdlib -Wall -Wextra -fno-pic -mno-mmx -ggdb3 -O2 -fno-stack-protector ${C_INCLUDES}")
+# -ffreestanding/-fno-builtin keep GCC from treating our own libc functions as
+# compiler builtins. -fno-tree-loop-distribute-patterns stops it from rewriting
+# loops inside memcpy/memset/strlen into recursive calls to themselves.
+set(CMAKE_C_FLAGS "-fanalyzer -nostdlib -ffreestanding -fno-builtin -fno-tree-loop-distribute-patterns -Wall -Wextra -fno-pic -mno-mmx -ggdb3 -O2 -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(crt0 OBJECT ${RUNTIME_INIT_FILES})
