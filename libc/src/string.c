@@ -2,16 +2,6 @@
 #include "stddef.h"
 #include "string.h"
 
-int isalnum(int c){
-    return  (c >= '0' && c <= '9') ||
-            (c >= 'a' && c <= 'z') ||
-            (c >= 'A' && c <= 'Z') ;
-}
-
-int isspace(int c) {
-	return c == ' ' || c == '\n' || c == '\t';
-}
-
 /**
  * @brief Возвращает индекс символа в строке
  *
