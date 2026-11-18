@@ -34,6 +34,7 @@ set(FILES
         src/mkdir.c
         src/stat.c
         src/proc.c
+        src/dir.c
         src/usleep.c
 
         src/gettimeofday.c
