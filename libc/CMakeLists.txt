@@ -26,15 +26,12 @@ set(FILES
         src/file.c
         src/getcwd.c
         src/syscall.c
-        src/unistd/rmdir.c
-        src/unistd/unlink.c
-        src/unistd/rename.c
-        src/unistd/lseek.c
         src/sprintf.c
         src/mkdir.c
         src/stat.c
         src/proc.c
         src/dir.c
+        src/dirstream.c
         src/usleep.c
 
         src/gettimeofday.c
@@ -76,6 +73,13 @@ set(FILES
         src/string/strtol.c
         src/string/strtoull.c
         src/string/substr.c
+        src/string/strerror.c
+        
+        src/unistd/rmdir.c
+        src/unistd/unlink.c
+        src/unistd/rename.c
+        src/unistd/lseek.c
+        src/unistd/chdir.c
 )
 
 if((${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386") OR (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i486") OR (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i586"))

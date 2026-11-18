@@ -29,6 +29,5 @@ char *getcwd(char *cwd, int size);
 void free(void *ptr);
 
 __attribute__((alloc_size(1), malloc(free))) void *malloc(long unsigned size);
-__attribute__((alloc_size(1, 2), malloc(free))) void *calloc(size_t nmemb,
-                                                             size_t count);
+__attribute__((alloc_size(1, 2), malloc(free))) void *calloc(size_t count, size_t nmemb);
 void *realloc(void *ptr, long unsigned new_size);

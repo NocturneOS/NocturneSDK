@@ -9,6 +9,7 @@
 #define O_CREAT 4
 #define O_APPEND 8
 #define O_TRUNC 16
+#define O_DIRECTORY 32
 
 int open(const char *filename, size_t mode, ...);
 int creat(const char *__file, mode_t __mode);

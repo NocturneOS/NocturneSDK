@@ -39,3 +39,5 @@ long long strtoll(const char *str, char **endptr, int base);
 double strtod(const char *str, char **endptr);
 char *strrchr(const char *s, int c);
 size_t strcspn(const char *s, const char *reject);
+
+char* strerror(int errnum);

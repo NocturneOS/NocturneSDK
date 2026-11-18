@@ -18,6 +18,8 @@ off_t lseek(int fd, off_t offset, int whence);
 int tell(int fd);
 int flush(int fd);
 
+int chdir(const char* path);
+
 /* lseek() / fseek() whence values. */
 #ifndef SEEK_SET
 #define SEEK_SET 0
